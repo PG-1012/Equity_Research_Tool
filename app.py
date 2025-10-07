@@ -94,7 +94,7 @@ def main():
         st.header("🔍 Stock Analysis")
         
         # Stock input
-        ticker = st.text_input("Enter Stock Ticker", placeholder="e.g., AAPL, MSFT, GOOGL")
+        ticker = st.text_input("Enter Stock Ticker", placeholder="e.g., AAPL, MSFT, GOOGL", key="stock_ticker")
         
         if st.button("🔍 Analyze Stock", type="primary"):
             if ticker:
@@ -121,12 +121,12 @@ def main():
         
         # Add new note
         with st.expander("➕ Add Note"):
-            note_title = st.text_input("Note Title")
-            note_content = st.text_area("Note Content")
-            note_tags = st.text_input("Tags (comma-separated)")
-            note_tickers = st.text_input("Related Tickers (comma-separated)")
+            note_title = st.text_input("Note Title", key="note_title")
+            note_content = st.text_area("Note Content", key="note_content")
+            note_tags = st.text_input("NoteTags (comma-separated)", key="note_tags")
+            note_tickers = st.text_input("Related Tickers (comma-separated)", key="note_tickers")
             
-            if st.button("Save Note"):
+            if st.button("Save Note", key="save_note"):
                 if note_title and note_content:
                     try:
                         tags = [tag.strip() for tag in note_tags.split(',')] if note_tags else []
@@ -147,13 +147,13 @@ def main():
         
         # Add new article
         with st.expander("🔗 Add Article"):
-            article_title = st.text_input("Article Title")
-            article_url = st.text_input("Article URL")
-            article_summary = st.text_area("Summary")
-            article_tags = st.text_input("Tags (comma-separated)")
-            article_tickers = st.text_input("Related Tickers (comma-separated)")
+            article_title = st.text_input("Article Title", key="article_title")
+            article_url = st.text_input("Article URL", key="article_url")
+            article_summary = st.text_area("Summary", key="article_summary")
+            article_tags = st.text_input("Tags (comma-separated)", key="article_tags")
+            article_tickers = st.text_input("Related Tickers (comma-separated)", key="article_tickers")
             
-            if st.button("Save Article"):
+            if st.button("Save Article", key="save_article"):
                 if article_title and article_url:
                     try:
                         tags = [tag.strip() for tag in article_tags.split(',')] if article_tags else []
@@ -175,7 +175,7 @@ def main():
         
         # Search knowledge base
         st.markdown("---")
-        search_query = st.text_input("🔍 Search Knowledge Base")
+        search_query = st.text_input("🔍 Search Knowledge Base", key="search_query")
         if search_query:
             search_results = components['knowledge_base'].search_knowledge_base(search_query)
             st.write(f"Found {len(search_results)} results")
@@ -376,10 +376,10 @@ def display_knowledge_base(knowledge_base):
         filter_type = st.selectbox("Filter by Type", ["All", "Notes", "Articles", "Research"])
     
     with col2:
-        filter_ticker = st.text_input("Filter by Ticker")
+        filter_ticker = st.text_input("Filter by Ticker", key="filter_ticker")
     
     with col3:
-        filter_tags = st.text_input("Filter by Tags (comma-separated)")
+        filter_tags = st.text_input("Filter by Tags (comma-separated)", key="filter_tags")
     
     # Apply filters
     filtered_items = all_items
